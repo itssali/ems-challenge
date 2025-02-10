@@ -1,25 +1,234 @@
-/* Uncomment to enable TailwindCSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* @import "tailwindcss";
-
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+/* Schedule-X Calendar Theme Overrides */
+:root {
+  --sx-color-primary: #4f46e5;
+  --sx-color-on-primary: #fff;
+  --sx-color-primary-container: #4f46e5;
+  --sx-color-on-primary-container: #fff;
+  --sx-color-surface: #1a1b1e;
+  --sx-color-surface-container: #2c2e33;
+  --sx-color-on-surface: #e5e7eb;
+  --sx-color-background: #1a1b1e;
+  --sx-color-on-background: #e5e7eb;
+  --sx-color-outline: #6b7280;
+  --sx-calendar-border-color: rgba(255, 255, 255, 0.1);
 }
 
-html,
-body {
-  @apply bg-white;
+/* Calendar wrapper styles */
+.sx-calendar-wrapper {
+  background-color: var(--sx-color-surface) !important;
+  border-radius: 1rem;
+  margin: 1rem;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: light;
+.sx-calendar {
+  background-color: var(--sx-color-surface) !important;
+  border-color: var(--sx-calendar-border-color) !important;
+}
+
+.sx-calendar * {
+  border-color: var(--sx-calendar-border-color) !important;
+  color: var(--sx-color-on-surface) !important;
+}
+
+.sx-calendar .time-grid-wrapper {
+  background-color: var(--sx-color-surface) !important;
+  overflow-y: auto !important;
+  height: calc(100% - 6rem) !important;
+}
+
+.sx-calendar .time-grid-hour {
+  background-color: var(--sx-color-surface-container) !important;
+}
+
+.sx-calendar .calendar-header {
+  background-color: var(--sx-color-surface) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+}
+
+.sx-calendar .day-grid {
+  background-color: var(--sx-color-surface) !important;
+  position: sticky !important;
+  top: 3rem !important;
+  z-index: 10 !important;
+}
+
+@layer base {
+  html {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    @apply antialiased bg-dark-surface-0;
+  }
+  
+  body {
+    @apply min-h-screen text-dark-text-primary;
+  }
+}
+
+@layer components {
+  .card {
+    @apply relative rounded-3xl shadow-lg border border-white/5 bg-dark-surface-1;
   }
 
-  @media (prefers-color-scheme: light) {
-    color-scheme: dark;
+  .glass-card {
+    @apply relative rounded-2xl shadow-xl border border-white/5;
+    background: linear-gradient(145deg, rgba(44,46,51,0.4), rgba(44,46,51,0.1));
   }
-} */
 
-body {
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  .btn {
+    @apply px-6 py-3 rounded-xl font-medium text-white relative overflow-hidden 
+           flex items-center justify-center gap-2 transition-all duration-300
+           shadow-lg active:shadow-md hover:-translate-y-0.5 active:translate-y-0
+           bg-gradient-to-r from-brand-light to-brand;
+  }
+
+  .btn::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300
+           bg-gradient-to-r from-brand to-brand-light;
+  }
+
+  .btn:hover::before {
+    @apply opacity-70;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-medium relative overflow-hidden
+           flex items-center justify-center gap-2 transition-all duration-300
+           text-dark-text-primary shadow-lg active:shadow-md 
+           hover:-translate-y-0.5 active:translate-y-0
+           border border-white/5 hover:bg-white/5;
+  }
+
+  .btn-secondary.active {
+    @apply bg-dark-surface-2;
+  }
+
+  .btn-danger {
+    @apply px-6 py-3 rounded-xl font-medium text-white relative overflow-hidden
+           flex items-center justify-center gap-2 transition-all duration-300
+           shadow-lg active:shadow-md hover:-translate-y-0.5 active:translate-y-0
+           bg-gradient-to-r from-red-400 to-danger;
+  }
+
+  .btn-danger:hover {
+    @apply opacity-90;
+  }
+
+  .input {
+    @apply w-full px-4 py-2.5 rounded-xl border border-white/5 
+           shadow-sm outline-none transition duration-200
+           focus:border-brand focus:ring-2 focus:ring-brand/20
+           placeholder:text-dark-text-secondary
+           text-dark-text-primary bg-dark-surface-2;
+  }
+
+  .select {
+    @apply w-full px-4 py-2.5 rounded-xl border border-white/5
+           shadow-sm outline-none transition duration-200 appearance-none
+           focus:border-brand focus:ring-2 focus:ring-brand/20
+           text-dark-text-primary bg-dark-surface-2;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+  }
+
+  .nav-link {
+    @apply px-3 py-1.5 rounded-lg font-medium transition-all duration-200
+           flex items-center gap-1.5 text-sm
+           hover:bg-dark-surface-2/50;
+  }
+
+  .nav-link.active {
+    @apply bg-dark-surface-2/70 shadow-sm text-brand-light;
+  }
+
+  .nav-link.active::before {
+    display: none;
+  }
+
+  .table-container {
+    @apply card p-0 overflow-hidden;
+  }
+
+  .table-header {
+    @apply bg-dark-surface-2/50 border-b border-white/5 sticky top-0;
+  }
+
+  .table-header th {
+    @apply px-6 py-4 text-sm font-semibold text-dark-text-secondary text-left;
+  }
+
+  .table-row {
+    @apply bg-dark-surface-1/30 border-b border-white/5 transition-colors 
+           hover:bg-dark-surface-2/30;
+  }
+
+  .table-row td {
+    @apply px-6 py-4 text-sm text-dark-text-primary;
+  }
+
+  .table-row td.secondary {
+    @apply text-dark-text-secondary;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-900/20 text-green-400;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-900/20 text-yellow-400;
+  }
+
+  .badge-error {
+    @apply bg-red-900/20 text-red-400;
+  }
+
+  .divider {
+    @apply h-px w-full my-8;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+  }
+
+  /* Modern scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-surface-2/50 rounded-full hover:bg-dark-surface-1/50 transition-colors;
+  }
+
+  /* Update the background for info sections */
+  .rounded-xl.bg-gray-50\/50 {
+    @apply bg-dark-surface-2/30;
+    background: linear-gradient(145deg, rgba(44,46,51,0.4), rgba(44,46,51,0.2));
+  }
+
+  /* Update text colors for headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-dark-text-primary;
+  }
+
+  p {
+    @apply text-dark-text-secondary;
+  }
+
+  /* Update borders for document cards */
+  .rounded-xl.border.border-gray-200 {
+    @apply border-white/5 bg-dark-surface-2/30;
+    background: linear-gradient(145deg, rgba(44,46,51,0.4), rgba(44,46,51,0.2));
+  }
 }
